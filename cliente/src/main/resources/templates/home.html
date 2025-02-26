@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Inicio - Cliente OAuth2</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .navbar { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .card { border: 1px solid #ddd; border-radius: 5px; padding: 20px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <h1>Cliente OAuth2</h1>
+    <div>
+        <a th:if="${#authorization?.expression('isAuthenticated()')}" th:href="@{/secured}">Área Segura</a>
+        <a th:if="${#authorization?.expression('isAuthenticated()')}" th:href="@{/logout}">Cerrar Sesión</a>
+        <a th:unless="${#authorization?.expression('isAuthenticated()')}" th:href="@{/oauth2/authorization/login-client}">Iniciar Sesión</a>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Mensaje Público</h2>
+    <p th:text="${publicMessage.message}">Mensaje de ejemplo</p>
+</div>
+
+<div class="card">
+    <h2>Información</h2>
+    <p>Para acceder a recursos protegidos, debe iniciar sesión primero.</p>
+    <a th:href="@{/secured}">Ir al área segura</a>
+</div>
+</body>
+</html>
